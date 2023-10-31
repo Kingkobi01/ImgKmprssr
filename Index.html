@@ -79,7 +79,8 @@
 
     <script>
         // Display the compressed image after form submission
-        document.querySelector('form').addEventListener('submit', (event) => {
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            // Prevent the default form submission
             event.preventDefault();
 
             // Hide the previous compressed image
@@ -90,21 +91,38 @@
             const formData = new FormData(event.target);
 
             // Send a POST request to the Flask app for image compression
-            fetch('http://localhost:5000/compress', {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const compressedImage = document.getElementById('compressed-image');
-                        compressedImage.src = data.compressed_url;
-                        outputImage.style.display = 'block';
-                    }
-                })
-                .catch(error => console.error(error));
+            const url = 'http://localhost:5000/compress';
+            const data = await sendImageForCompression(url, formData);
+
+            console.log('Received data:', data);
+
+            if (data && data.success) {
+                const compressedImage = document.getElementById('compressed-image');
+                compressedImage.src = data.compressed_url;
+                outputImage.style.display = 'block';
+            } else {
+                console.error('Image compression failed:', data.error);
+            }
         });
+
+        async function sendImageForCompression(url, form_data) {
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    body: form_data
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    return data;
+                } else {
+                    return { success: false, error: 'Request failed' };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
     </script>
+
 </body>
 
 </html>
