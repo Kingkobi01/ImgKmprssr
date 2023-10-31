@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from utils import compress_image, delete_old_images
 
 
 app = Flask(__name__)
+
+CORS(app, resources={r"/compress": {"origins": "http://localhost:5500"}})
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
