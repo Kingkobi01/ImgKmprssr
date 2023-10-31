@@ -1,30 +1,16 @@
-// This JavaScript code enhances the functionality of the landing page.
+document.getElementById("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const image = document.getElementById("file").files[0];
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form");
-  const compressedImage = document.getElementById("compressed-image");
-  const downloadLink = document.getElementById("download-link");
+  const form_data = new FormData();
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const imageInput = document.getElementById("image");
-    const outputImage = document.getElementById("output-image");
-    outputImage.style.display = "none";
+  form_data.append("image", image);
 
-    const formData = new FormData(form);
-
-    fetch("http://localhost:5000/compress", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          compressedImage.src = data.compressed_url;
-          outputImage.style.display = "block";
-          downloadLink.href = data.compressed_url;
-        }
-      })
-      .catch((error) => console.error(error));
-  });
+  fetch("http://localhost:5000/compress", {
+    method: "POST",
+    body: form_data,
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
 });

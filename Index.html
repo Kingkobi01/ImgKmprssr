@@ -65,9 +65,9 @@
     <div class="container">
         <h1>Image Compression App</h1>
         <p>Compress your images easily!</p>
-        <form action="" method="POST" enctype="multipart/form-data" class="input-group">
+        <form id="form" action="" method="POST" enctype="multipart/form-data" class="input-group">
             <label for="image">Select an image to compress:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+            <input id="file" type="file" id="image" name="image" accept=".jpg, .jpeg, .png" required>
             <button type="submit">Compress</button>
         </form>
         <div id="output-image">
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         // Display the compressed image after form submission
         document.querySelector('form').addEventListener('submit', async (event) => {
             // Prevent the default form submission
@@ -91,38 +91,42 @@
             const formData = new FormData(event.target);
 
             // Send a POST request to the Flask app for image compression
-            const url = 'http://localhost:5000/compress';
-            const data = await sendImageForCompression(url, formData);
+            try {
+                const response = await sendImageForCompression('http://localhost:5000/compress', formData);
+                console.log('Received data:', response);
 
-            console.log('Received data:', data);
-
-            if (data && data.success) {
-                const compressedImage = document.getElementById('compressed-image');
-                compressedImage.src = data.compressed_url;
-                outputImage.style.display = 'block';
-            } else {
-                console.error('Image compression failed:', data.error);
+                if (response.success) {
+                    const compressedImage = document.getElementById('compressed-image');
+                    compressedImage.src = response.compressed_url;
+                    outputImage.style.display = 'block';
+                } else {
+                    console.error('Image compression failed:', response.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
         });
 
         async function sendImageForCompression(url, form_data) {
             try {
                 const response = await fetch(url, {
-                    method: "POST",
+                    method: 'POST',
                     body: form_data
                 });
+
                 if (response.ok) {
-                    const data = await response.json();
-                    return data;
+                    return await response.json();
                 } else {
-                    return { success: false, error: 'Request failed' };
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
             } catch (error) {
-                return { success: false, error: error.message };
+                throw error;
             }
         }
-    </script>
+    </script> -->
 
+
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
