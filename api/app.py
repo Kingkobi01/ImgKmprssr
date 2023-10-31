@@ -6,7 +6,7 @@ from utils import compress_image, delete_old_images
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/compress": {"origins": "http://localhost:5500"}})
+CORS(app)
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
