@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             background-color: #fff;
             border-radius: 5px;
@@ -20,21 +22,26 @@
             margin: 20px auto;
             max-width: 600px;
         }
+
         h1 {
             color: #333;
         }
+
         .input-group {
             margin-top: 20px;
         }
+
         .input-group label {
             display: block;
             margin-bottom: 5px;
             color: #555;
         }
+
         .input-group input[type="file"] {
             padding: 10px;
             width: 100%;
         }
+
         .input-group button {
             background-color: #007BFF;
             color: #fff;
@@ -42,15 +49,18 @@
             border: none;
             cursor: pointer;
         }
+
         .input-group button:hover {
             background-color: #0056b3;
         }
+
         #output-image {
             display: none;
             margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Image Compression App</h1>
@@ -80,21 +90,21 @@
             const formData = new FormData(event.target);
 
             // Send a POST request to the Flask app for image compression
-            fetch('/compress', {
+            fetch('http://localhost:5000/compress', {
                 method: 'POST',
                 body: formData,
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const compressedImage = document.getElementById('compressed-image');
-                    compressedImage.src = data.compressed_url;
-                    outputImage.style.display = 'block';
-                }
-            })
-            .catch(error => console.error(error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const compressedImage = document.getElementById('compressed-image');
+                        compressedImage.src = data.compressed_url;
+                        outputImage.style.display = 'block';
+                    }
+                })
+                .catch(error => console.error(error));
         });
     </script>
 </body>
-</html>
 
+</html>
