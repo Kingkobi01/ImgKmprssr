@@ -27,10 +27,19 @@ def handle_compress():
         new_filename = f"images/{image.filename.split('.')[0]}_cmprssd.jpeg"
 
         compressed_path = compress_image(image, new_filename)
+
+        if compressed_path:
+            # Set the correct MIME type for JPEG
+            mimetype = "image/jpeg"
+
+        return send_file(
+            compressed_path,
+            as_attachment=True,
+            mimetype=mimetype,
+            download_name=new_filename,
+        )
     except Exception as e:
         return jsonify({"error": f"{str(e)}"}), 400
-
-    return send_file(compressed_path, as_attachment=True)
 
 
 scheduler = BackgroundScheduler(daemon=True)
