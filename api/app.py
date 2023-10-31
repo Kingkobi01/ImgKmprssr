@@ -11,7 +11,7 @@ def index():
     return '<h1 style="font-family:monospace">Welcome to ImgKmprssr&#174;</h1>'
 
 
-@app.route("/compress-image", methods=["POST"], strict_slashes=False)
+@app.route("/compress", methods=["POST"], strict_slashes=False)
 def handle_compress():
     if "image" not in request.files:
         return jsonify({"error": "No Image provided"}), 400
