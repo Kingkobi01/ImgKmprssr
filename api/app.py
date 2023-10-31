@@ -16,6 +16,7 @@ def index():
 
 @app.route("/compress", methods=["POST"], strict_slashes=False)
 def handle_compress():
+    print(request)
     if "image" not in request.files:
         return jsonify({"error": "No Image provided"}), 400
 
