@@ -28,21 +28,14 @@ def handle_compress():
 
         compressed_path = compress_image(image, new_filename)
 
-        if compressed_path:
-            # Set the correct MIME type for JPEG
-            mimetype = "image/jpeg"
-
-        return jsonify(
-            {
-                "success": True,
-                "result": send_file(
-                    compressed_path,
-                    as_attachment=True,
-                    mimetype=mimetype,
-                    download_name=new_filename,
-                ),
-            }
+        mimetype = "image/jpeg"
+        return send_file(
+            compressed_path,
+            as_attachment=True,
+            mimetype=mimetype,
+            download_name=new_filename,
         )
+
     except Exception as e:
         return jsonify({"error": f"{str(e)}"}), 400
 
