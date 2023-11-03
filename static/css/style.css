@@ -1,0 +1,74 @@
+/* body,
+nav {
+    background-color: #c0c0c0;
+} */
+
+.welcome {
+    text-align: center;
+    background-color: burlywood;
+    padding-block: 2em;
+}
+
+.about {
+    margin-top: 1.5em;
+    max-width: 75ch;
+    text-align: center;
+    font-size: 1rem;
+    margin-inline: auto;
+}
+
+
+/* Initially, no shadow */
+.image {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 0.3s;
+    /* Add a transition for a smooth effect */
+}
+
+/* On hover, add an inset shadow */
+.image:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Adjust the values as needed */
+}
+
+.off {
+    display: none;
+}
+
+.card {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+.progress-bar {
+    width: 350px;
+    background-color: #ccc;
+    height: 1.5em;
+    position: relative;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.5s;
+    /* Add a smooth transition effect */
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
