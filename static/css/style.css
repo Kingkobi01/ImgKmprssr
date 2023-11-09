@@ -3,13 +3,24 @@ nav {
     background-color: #c0c0c0;
 } */
 
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+
+}
+
 .welcome {
     text-align: center;
     background-color: burlywood;
     padding-block: 2em;
+    margin-top: 4.5em;
+    align-self: center;
 }
 
-.about {
+
+.notes {
     margin-top: 1.5em;
     max-width: 75ch;
     text-align: center;
