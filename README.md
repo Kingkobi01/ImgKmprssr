@@ -1,6 +1,6 @@
 # ImgKmprssr
 
-![ImgKmprssr Logo](ImgKmprssr_cmprssd.jpeg)
+![ImgKmprssr Logo](./assets/ImgKmprssr_cmprssd.jpeg)
 
 ImgKmprssr is your go-to image compression application that combines cutting-edge optimization and lossy compression algorithms. Shrink JPEG, GIF, and PNG images to the smallest possible size while maintaining the desired level of quality.
 
@@ -36,3 +36,12 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 Feel the thrill of compressing images with ImgKmprssr! 🚀
+
+## Demo
+
+<video width="740" height="420" controls>
+
+  <source src="./assets/ImgKmprssr.mp4" type="video/mp4">
+
+  Your browser does not support the video tag.
+</video>
