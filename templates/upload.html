@@ -1,14 +1,53 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Image Upload</title>
-	</head>
-	<body>
-		<h1>Upload an Image</h1>
-		<form action="/upload" method="POST" enctype="multipart/form-data">
-			<label for="image">Select an Image:</label>
-			<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-			<button type="submit">Upload Image</button>
-		</form>
-	</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Compress your Image{% endblock title %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh;">
+
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {% for error in form.image.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                {{ form.image(class='form-control mb-2', id='image')}}
+            </div>
+            <div class="col-auto">
+                {{ form.submit(class='btn btn-info')}}
+            </div>
+        </div>
+    </form>
+
+    {% if img_url %}
+    <div class="mt-5 d-flex flex-column align-items-center justify-content-center">
+        <div class="progress-bar mb-2">
+            <div class="progress"></div>
+            <div class="progress-text">0%</div>
+        </div>
+        <div class="card off" style="width: 400px;">
+            <img src="{{ img_url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">{{ description if description else "Some quick example text to build on the card
+                    title and make up the bulk of the
+                    card's
+                    content."}}</p>
+                <a href="{{ img_url }}" download class="btn btn-success">Download compressed version</a>
+            </div>
+        </div>
+
+
+
+        <script src="{{url_for('static', filename='js/progressBar.js')}}"></script>
+    </div>
+    <!-- <div class="mt-5 d-flex flex-column text-center align-items-center justify-content-center">
+    <img class="mb-2 image" src="{{ img_url }}" style="width: 400px;">
+    <a href="{{ img_url }}" download="" class="btn btn-success">Download compressed version</a>
+
+</div> -->
+    {% endif %}
+</div>
+{% endblock content %}

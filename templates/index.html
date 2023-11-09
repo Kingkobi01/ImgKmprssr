@@ -1,40 +1,48 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Image Compression App</title>
-		        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-	</head>
-	<body>
-		<h1>Image Compression</h1>
-		<form action="/compress" method="POST" enctype="multipart/form-data">
-			<label for="image">Select an Image:</label>
-			<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-			<button type="submit">Compress Image</button>
-		</form>
-		<div id="result">
-			<div id="loading" style="display: none;">Compressing image... Please wait.</div>
-			<img id="compressedImage" src="" alt="Compressed Image">
-			<div id="error" style="color: red;"></div>
-		</div>
-		<script>
-			document.querySelector('form').addEventListener('submit', async (e) => {
-				e.preventDefault();
-				document.querySelector('#loading').style.display = 'block';
-				document.querySelector('#error').style.display = 'none';
-				
-				const formData = new FormData(e.target);
-				const response = await fetch('/compress', {
-					method: 'POST',
-					body: formData
-				})
-				if (response.ok) {
-					const blob = await response.blob();
-					const url = URL.createObjectURL(blob);
-					document.querySelector('#compressedImage').src = url;
-				} else {																			                const errorText = await response.text();
-					document.querySelector('#error').textContent = 'Error: ' + errorText;																				            }
-				document.querySelector('#loading').style.display = 'none'
-			}); 
-		</script>
-	</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+<div class="welcome">
+	<p class="display-1">Welcome to ImgKmprssr&circledR;</p>
+	<p class="display-4">An online image compressor</p>
+	<a class="btn btn-outline-dark" href="{{url_for('upload')}}">Optimize Your Images in Seconds.</a>
+</div>
+
+<div class="about">
+	<p>
+		Are you tired of high-quality images cluttering your device? Introducing ImgKmprssr, where we've mastered the
+		art
+		of making your photos as tiny and unrecognizable as possible. You won't even recognize your own face in those
+		vacation pictures! But hey, who needs clarity and details, right? ImgKmprssr: Embrace the pixelation revolution.
+		📸😂
+	</p>
+
+	<p>
+		ImgKmprssr is not your ordinary image compressor; it's a work of art! We employ a 'genius' mix of top-notch
+		optimization and lossy compression techniques to ruthlessly shrink your beloved JPEG, GIF, and PNG images. Our
+		goal?
+		To make sure you squint and struggle to discern any semblance of quality in your visuals. You asked for it; we
+		delivered. Say goodbye to recognizable images, and hello to the abstract world of pixel perfection! 🔍🙃
+		#CompressionMastery
+	</p>
+
+
+	<blockquote class="blockquote">
+		<p class="text-start">
+			"ImgKmprssr: Because your precious photos deserve to be as pixelated and unrecognizable as possible. Who
+			needs
+			clarity, anyway? It's not like you wanted to see your grandma's face in that family reunion picture, right?
+			😂
+			#CompressionMastery"
+		</p>
+		<footer class="blockquote-footer">
+			<a class="text-decoration-none" target="_blank" href="https://github.com/Kingkobi01">Kwabena Boakye</a>
+		</footer>
+	</blockquote>
+
+</div>
+
+
+{% endblock content %}
