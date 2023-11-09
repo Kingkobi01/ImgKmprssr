@@ -30,11 +30,17 @@ def upload():
         if allowed_filenames(filename):
             _, new_filename = compress_image(image, filename)
             img_url = url_for("get_image", filename=new_filename)
-            print(img_url)
+            # image_description = describe_image(
+            #     img_path=f"{app.config['UPLOADED_PHOTOS_DEST']}/{new_filename}"
+            # )
+            # print(img_url)
     else:
         img_url = None
+        image_description = None
 
-    return render_template("upload.html", form=form, img_url=img_url)
+    return render_template(
+        "upload.html", form=form, img_url=img_url, description=image_description
+    )
 
 
 if __name__ == "__main__":
