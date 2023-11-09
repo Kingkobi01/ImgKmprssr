@@ -8,9 +8,14 @@ import os
 scheduler = init_scheduler(app)
 
 
-@app.route("/")
+@app.route("/", strict_slashes=False)
 def index():
     return render_template("index.html")
+
+
+@app.route("/about", strict_slashes=False)
+def about():
+    return render_template("about.html")
 
 
 # @app.route("/upload")
@@ -19,12 +24,12 @@ def index():
 #     return render_template("upload.html", form=form, img_url=None)
 
 
-@app.route("/image/<filename>")
+@app.route("/image/<filename>", strict_slashes=False)
 def get_image(filename):
     return send_from_directory(app.config["UPLOADED_PHOTOS_DEST"], filename)
 
 
-@app.route("/compress", methods=["GET", "POST"])
+@app.route("/compress", methods=["GET", "POST"], strict_slashes=False)
 def upload():
     form = UploadForm()
 
